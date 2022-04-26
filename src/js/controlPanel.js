@@ -48,7 +48,6 @@ export default class ControlPanel extends HTMLElement {
       } else {
         this.table.insertBefore(this.dragItem, afterElement);
       }
-      this.reindexColors();
     });
     this.table.addEventListener('click', (e) => {
       if (e.target.closest('button')) {
@@ -71,6 +70,8 @@ export default class ControlPanel extends HTMLElement {
     this.renderTableRows();
     this.mountPicker();
     this.settingPrimeColor();
+    // диспатчим активный цвет в сферу //
+    window.EventBus.dispatchEvent('colorHasChanged', { color: this.getAttribute('color') });
   }
 
   // меняем видимость модального окна и чистим форму//
@@ -119,6 +120,7 @@ export default class ControlPanel extends HTMLElement {
       const item = this.colors.find((el) => el.id === id);
       item.position = i + 1;
     }
+    this.colors.sort((a, b) => a.position - b.position);
     this.settingPrimeColor();
   }
 
@@ -246,6 +248,7 @@ export default class ControlPanel extends HTMLElement {
     item.addEventListener('dragend', (e) => {
       e.target.classList.remove('hide');
       this.dragItem = null;
+      this.reindexColors();
     });
   }
 
@@ -253,13 +256,13 @@ export default class ControlPanel extends HTMLElement {
   // если цвет меняется, то меняется атрибут color //
   settingPrimeColor() {
     if (this.colors.length === 0) {
-      this.color = '';
+      this.setAttribute('color', '');
       return false;
     }
-    if (this.colors[0].color === this.color) {
+    if (this.colors[0].color === this.getAttribute('color')) {
       return false;
     }
-    this.color = this.colors[0].color;
+    this.setAttribute('color', this.colors[0].color);
     return true;
   }
 
@@ -271,5 +274,17 @@ export default class ControlPanel extends HTMLElement {
   // сеттер для основного цвета //
   set color(value) {
     this.setAttribute('color', value);
+  }
+
+  // этот метод нужен для метода ниже по спецификации //
+  static get observedAttributes() {
+    return ['color'];
+  }
+
+  // следим за изменениями атрибута color //
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return false;
+    window.EventBus.dispatchEvent('colorHasChanged', { color: this.color });
+    return true;
   }
 }

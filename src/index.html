@@ -18,7 +18,81 @@
         rel="stylesheet"
         href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
       />
+      
+      <!-- разметка -->
+      <section class="window">
+        <div class="container">
+          <div class="header-container-name">
+            <h2>Таблица цветов</h2>
+          </div>
+          <div class="header-container-buttons">
+            <button class="header-container-buttons-button save">
+              <span class="material-symbols-outlined icon-color"> save </span>
+            </button>
+            <button class="header-container-buttons-button">
+              <span class="material-symbols-outlined icon-color"> close </span>
+            </button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="font-weight: 600">Цвет</th>
+              <th style="font-weight: 600">Название</th>
+              <th style="font-weight: 600">Тип</th>
+              <th style="font-weight: 600">Код</th>
+              <th style="font-weight: 600">Изменить</th>
+              <th style="font-weight: 600">Удалить</th>
+            </tr>
+          </thead>
+          <tbody class="table-body"></tbody>
+        </table>
+        <div class="container">
+          <button class="add-button">
+            <span class="add-button-text">Добавить цвет</span>
+          </button>
+        </div>
+      </section>
+      <!-- разметка модального окна -->
+      <div class="modal">
+        <form class="modal-container">
+          <h3 class="modal-container-header">Добавление цвета</h3>
+          <div class="modal-container-input-wraper">
+            <label for="name"> Название цвета </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="modal-container-input"
+              placeholder="Введите название"
+            />
+          </div>
+          <div class="modal-container-input-wraper">
+            <label for="type"> Выберите тип </label>
+            <select
+              name="type"
+              id="type"
+              class="modal-container-input"
+              style="width: 175px"
+            >
+              <option value="main" default>Main</option>
+              <option value="primary">Primary</option>
+              <option value="secondary">Secondary</option>
+              <option value="base">Base</option>
+            </select>
+          </div>
+          <div class="modal-container-picker-container"></div>
+          <button
+            class="add-button modal-container-input-button"
+            type="submit"
+            style="background-color: #53cbf1"
+          >
+            <span style="opacity: 100" class="form-add-button-text">Добавить</span>
+          </button>
+        </form>
+      </div>
 
+      <!-- таблица стилей для элемента -->
       <style>
         @font-face {
           font-family: "Lato", sans-serif;
@@ -33,6 +107,7 @@
           border-radius: 20px;
           display: flex;
           flex-direction: column;
+          margin: 100px auto;
         }
 
         .container {
@@ -281,78 +356,7 @@
           opacity: .5;
         }
       </style>
-      <!-- разметка -->
-      <section class="window">
-        <div class="container">
-          <div class="header-container-name">
-            <h2>Таблица цветов</h2>
-          </div>
-          <div class="header-container-buttons">
-            <button class="header-container-buttons-button save">
-              <span class="material-symbols-outlined icon-color"> save </span>
-            </button>
-            <button class="header-container-buttons-button">
-              <span class="material-symbols-outlined icon-color"> close </span>
-            </button>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th style="font-weight: 600">Цвет</th>
-              <th style="font-weight: 600">Название</th>
-              <th style="font-weight: 600">Тип</th>
-              <th style="font-weight: 600">Код</th>
-              <th style="font-weight: 600">Изменить</th>
-              <th style="font-weight: 600">Удалить</th>
-            </tr>
-          </thead>
-          <tbody class="table-body"></tbody>
-        </table>
-        <div class="container">
-          <button class="add-button">
-            <span class="add-button-text">Добавить цвет</span>
-          </button>
-        </div>
-      </section>
-      <!-- разметка модального окна -->
-      <div class="modal">
-        <form class="modal-container">
-          <h3 class="modal-container-header">Добавление цвета</h3>
-          <div class="modal-container-input-wraper">
-            <label for="name"> Название цвета </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="modal-container-input"
-              placeholder="Введите название"
-            />
-          </div>
-          <div class="modal-container-input-wraper">
-            <label for="type"> Выберите тип </label>
-            <select
-              name="type"
-              id="type"
-              class="modal-container-input"
-              style="width: 175px"
-            >
-              <option value="main" default>Main</option>
-              <option value="primary">Primary</option>
-              <option value="secondary">Secondary</option>
-              <option value="base">Base</option>
-            </select>
-          </div>
-          <div class="modal-container-picker-container"></div>
-          <button
-            class="add-button modal-container-input-button"
-            type="submit"
-            style="background-color: #53cbf1"
-          >
-            <span style="opacity: 100" class="form-add-button-text">Добавить</span>
-          </button>
-        </form>
-      </div>
+
       <!-- отдельная таблица стилей для color picker-->
       <style>
         .picker_arrow {
@@ -628,6 +632,33 @@
       </style>
     </template>
 
+    <!-- шаблон для окна сферы -->
+    <template id="sphere-panel">
+
+      <!-- разметка -->
+      <section>
+        <h1 class="color"></h1>
+      </section>
+
+      <!-- таблица стилей -->
+      <style>
+        section {
+          max-width: 679px;
+          height: 100px;
+          background-color: #313131;
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+          margin: 100px auto;
+        }
+
+        h1 {
+          text-align: center;
+        }
+      </style>
+    </template>
+
     <control-panel color=""></control-panel>
+    <sphere-panel></sphere-panel>
   </body>
 </html>
