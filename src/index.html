@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+  </head>
+  <body class="body">
+    <!-- html код для контрольной панели-->
+    <template id="controlPanel">
+      <!--ссылка для иконок google-->
+      <link
+        rel="stylesheet"
+        href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      />
+
+      <style>
+        @font-face {
+          font-family: "Lato", sans-serif;
+          src: url(./fonts/lato/Lato-Regular.ttf);
+          font-style: normal;
+          font-weight: normal;
+        }
+
+        section {
+          max-width: 679px;
+          background-color: #313131;
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .container {
+          display: flex;
+          width: 100%;
+          padding: 20px 0;
+        }
+
+        .header-container-name {
+          width: calc(100% - 76px);
+        }
+
+        .header-container-buttons {
+          max-width: 76px;
+          padding-right: 16px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+        }
+
+        .header-container-buttons-button {
+          width: 25px;
+          height: 25px;
+          background-color: transparent;
+          border: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-container-buttons-button:nth-child(1) {
+          margin-right: 10px;
+        }
+
+        .icon-color {
+          color: #8d8d8d;
+        }
+
+        h2 {
+          font-family: "Lato", sans-serif;
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 21.6px;
+          font-style: normal;
+          color: #ffffff;
+          margin: auto;
+          text-align: center;
+        }
+
+        .add-button {
+          width: 220px;
+          height: 35px;
+          background-color: transparent;
+          border: 1px solid #53cbf1;
+          border-radius: 20px;
+          font-family: "Lato", sans-serif;
+          font-size: 12px;
+          line-height: 14.4px;
+          margin: 0 35% 0 31%;
+          color: #ffffff;
+        }
+
+        .add-button > span {
+          opacity: 10%;
+          font-weight: 700;
+        }
+
+        .add-button:hover > span {
+          opacity: 100%;
+        }
+
+        table {
+          width: 100%;
+        }
+
+        th {
+          border: 1px solid transparent;
+          background-color: #424242;
+          width: 16.5%;
+          height: 55px;
+          font-weight: 400;
+        }
+
+        th:nth-child(1) {
+          width: 14%;
+        }
+
+        th:nth-child(2) {
+          width: 20%;
+        }
+
+        thead {
+          font-family: "Lato", sans-serif;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 21.6px;
+          color: #ffffff;
+        }
+
+        .table-color-sample {
+          width: 41px;
+          height: 41px;
+          margin: auto;
+        }
+
+        tbody {
+          font-family: "Lato", sans-serif;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 15px;
+          color: #bfbfbf;
+        }
+
+        .unstyled-buton {
+          background-color: transparent;
+          border: none;
+          color: #bfbfbf;
+        }
+
+        .edit:hover {
+          color: #53cbf1;
+        }
+
+        .delete:hover {
+          color: #ca4c4c;
+        }
+
+        .modal {
+          height: 100vh;
+          width: 100vw;
+          background-color: rgba(0, 0, 0, 0.4);
+          position: fixed;
+          top: 0;
+          left: 0;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          opacity: 0;
+          pointer-events: none;
+          -webkit-transition: 0.5s;
+          transition: 0.5s;
+        }
+
+        .modal.active {
+          opacity: 1;
+          pointer-events: all;
+        }
+
+        .modal-container {
+          border-radius: 12px;
+          background-color: #313131;
+          -webkit-transform: scale(0.005);
+          transform: scale(0.005);
+          -webkit-transition: 0.4 all;
+          transition: 0.4 all;
+          width: 320px;
+          min-height: 100px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .modal-container.active {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+
+        .modal-container-header {
+          font-family: "Lato", sans-serif;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 21.6px;
+          color: #ffffff;
+          margin: 20px 0 10 0;
+          text-align: center;
+        }
+
+        .modal-container-input-wraper {
+          margin: 17px 0 0 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 25px 0 15px;
+        }
+
+        label {
+          font-family: "Lato", sans-serif;
+          font-weight: 700;
+          font-size: 12px;
+          line-height: 20px;
+          color: #a0a0a0;
+        }
+
+        .modal-container-input {
+          height: 40px;
+          width: 160px;
+          border-radius: 12px;
+          background-color: #777777;
+          border: none;
+          font-family: "Lato", sans-serif;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 20px;
+          color: #a0a0a0;
+        }
+
+        .modal-container-input::placeholder {
+          font-family: "Lato", sans-serif;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 20px;
+          color: #a0a0a0;
+        }
+
+        .modal-container-input:focus {
+          border: none;
+          outline: none;
+        }
+
+        select {
+          padding: 0 15px 0 15px;
+        }
+
+        input[type="text"] {
+          padding: 0 0 0 15px;
+        }
+
+        .modal-container-select-wraper {
+          position: relative;
+        }
+
+        .modal-container-input-button {
+          margin: 18px auto 14px auto;
+        }
+
+        .modal-container-picker-container {
+          display: table;
+          margin-top: 40px;
+        }
+
+        .hide {
+          opacity: .5;
+        }
+      </style>
+      <!-- разметка -->
+      <section class="window">
+        <div class="container">
+          <div class="header-container-name">
+            <h2>Таблица цветов</h2>
+          </div>
+          <div class="header-container-buttons">
+            <button class="header-container-buttons-button save">
+              <span class="material-symbols-outlined icon-color"> save </span>
+            </button>
+            <button class="header-container-buttons-button">
+              <span class="material-symbols-outlined icon-color"> close </span>
+            </button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="font-weight: 600">Цвет</th>
+              <th style="font-weight: 600">Название</th>
+              <th style="font-weight: 600">Тип</th>
+              <th style="font-weight: 600">Код</th>
+              <th style="font-weight: 600">Изменить</th>
+              <th style="font-weight: 600">Удалить</th>
+            </tr>
+          </thead>
+          <tbody class="table-body"></tbody>
+        </table>
+        <div class="container">
+          <button class="add-button">
+            <span class="add-button-text">Добавить цвет</span>
+          </button>
+        </div>
+      </section>
+      <!-- разметка модального окна -->
+      <div class="modal">
+        <form class="modal-container">
+          <h3 class="modal-container-header">Добавление цвета</h3>
+          <div class="modal-container-input-wraper">
+            <label for="name"> Название цвета </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="modal-container-input"
+              placeholder="Введите название"
+            />
+          </div>
+          <div class="modal-container-input-wraper">
+            <label for="type"> Выберите тип </label>
+            <select
+              name="type"
+              id="type"
+              class="modal-container-input"
+              style="width: 175px"
+            >
+              <option value="main" default>Main</option>
+              <option value="primary">Primary</option>
+              <option value="secondary">Secondary</option>
+              <option value="base">Base</option>
+            </select>
+          </div>
+          <div class="modal-container-picker-container"></div>
+          <button
+            class="add-button modal-container-input-button"
+            type="submit"
+            style="background-color: #53cbf1"
+          >
+            <span style="opacity: 100" class="form-add-button-text">Добавить</span>
+          </button>
+        </form>
+      </div>
+      <!-- отдельная таблица стилей для color picker-->
+      <style>
+        .picker_arrow {
+          position: absolute;
+          z-index: -1;
+        }
+
+        .picker_wrapper.popup {
+          position: absolute;
+          z-index: 2;
+          margin: 1.5em;
+        }
+        .picker_wrapper.popup,
+        .picker_wrapper.popup .picker_arrow::before,
+        .picker_wrapper.popup .picker_arrow::after {
+          background: #313131;
+          box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.4);
+        }
+        .picker_wrapper.popup .picker_arrow {
+          width: 3em;
+          height: 3em;
+          margin: 0;
+        }
+        .picker_wrapper.popup .picker_arrow::before,
+        .picker_wrapper.popup .picker_arrow::after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -99;
+        }
+        .picker_wrapper.popup .picker_arrow::before {
+          width: 100%;
+          height: 100%;
+          transform: skew(45deg);
+          transform-origin: 0 100%;
+        }
+        .picker_wrapper.popup .picker_arrow::after {
+          width: 150%;
+          height: 150%;
+          box-shadow: none;
+        }
+
+        .popup.popup_top {
+          bottom: 100%;
+          left: 0;
+        }
+        .popup.popup_top .picker_arrow {
+          bottom: 0;
+          left: 0;
+          transform: rotate(-90deg);
+        }
+
+        .popup.popup_bottom {
+          top: 100%;
+          left: 0;
+        }
+        .popup.popup_bottom .picker_arrow {
+          top: 0;
+          left: 0;
+          transform: rotate(90deg) scale(1, -1);
+        }
+
+        .popup.popup_left {
+          top: 0;
+          right: 100%;
+        }
+        .popup.popup_left .picker_arrow {
+          top: 0;
+          right: 0;
+          transform: scale(-1, 1);
+        }
+
+        .popup.popup_right {
+          top: 0;
+          left: 100%;
+        }
+        .popup.popup_right .picker_arrow {
+          top: 0;
+          left: 0;
+        }
+
+        .picker_wrapper.no_alpha .picker_alpha {
+          display: none;
+        }
+
+        .picker_wrapper.no_editor .picker_editor {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+        }
+
+        .picker_wrapper.no_cancel .picker_cancel {
+          display: none;
+        }
+
+        .layout_default.picker_wrapper {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-items: stretch;
+          font-size: 10px;
+          width: 25em;
+          padding: 0.5em;
+        }
+        .layout_default.picker_wrapper input,
+        .layout_default.picker_wrapper button {
+          font-size: 1rem;
+        }
+        .layout_default.picker_wrapper > * {
+          margin: 0.5em;
+        }
+        .layout_default.picker_wrapper::before {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 0;
+          order: 1;
+        }
+        .layout_default .picker_slider,
+        .layout_default .picker_selector {
+          padding: 1em;
+        }
+        .layout_default .picker_hue {
+          width: 100%;
+        }
+        .layout_default .picker_sl {
+          flex: 1 1 auto;
+        }
+        .layout_default .picker_sl::before {
+          content: "";
+          display: block;
+          padding-bottom: 100%;
+        }
+        .layout_default .picker_editor {
+          order: 1;
+          width: 6.5rem;
+        }
+        .layout_default .picker_editor input {
+          width: 100%;
+          height: 100%;
+        }
+        .layout_default .picker_sample {
+          order: 1;
+          flex: 1 1 auto;
+        }
+        .layout_default .picker_done,
+        .layout_default .picker_cancel {
+          order: 1;
+        }
+
+        .picker_wrapper {
+          box-sizing: border-box;
+          background: #313131;
+          cursor: default;
+          font-family: sans-serif;
+          color: #444;
+          pointer-events: auto;
+          margin: auto;
+        }
+        .picker_wrapper:focus {
+          outline: none;
+        }
+        .picker_wrapper button,
+        .picker_wrapper input {
+          box-sizing: border-box;
+          border: none;
+          box-shadow: 0 0 0 1px silver;
+          outline: none;
+        }
+        .picker_wrapper button:focus,
+        .picker_wrapper button:active,
+        .picker_wrapper input:focus,
+        .picker_wrapper input:active {
+          box-shadow: 0 0 2px 1px dodgerblue;
+        }
+        .picker_wrapper button {
+          padding: 0.4em 0.6em;
+          cursor: pointer;
+          background-color: whitesmoke;
+          background-image: linear-gradient(0deg, gainsboro, transparent);
+        }
+        .picker_wrapper button:active {
+          background-image: linear-gradient(0deg, transparent, gainsboro);
+        }
+        .picker_wrapper button:hover {
+          background-color: white;
+        }
+
+        .picker_selector {
+          position: absolute;
+          z-index: 1;
+          display: block;
+          transform: translate(-50%, -50%);
+          border: 2px solid white;
+          border-radius: 100%;
+          box-shadow: 0 0 3px 1px #67b9ff;
+          background: currentColor;
+          cursor: pointer;
+        }
+
+        .picker_slider .picker_selector {
+          border-radius: 2px;
+        }
+
+        .picker_hue {
+          position: relative;
+          background-image: linear-gradient(
+            90deg,
+            red,
+            yellow,
+            lime,
+            cyan,
+            blue,
+            magenta,
+            red
+          );
+          box-shadow: 0 0 0 1px silver;
+        }
+
+        .picker_sl {
+          position: relative;
+          box-shadow: 0 0 0 1px silver;
+          background-image: linear-gradient(
+              180deg,
+              white,
+              rgba(255, 255, 255, 0) 50%
+            ),
+            linear-gradient(0deg, black, rgba(0, 0, 0, 0) 50%),
+            linear-gradient(90deg, #808080, rgba(128, 128, 128, 0));
+        }
+
+        .picker_alpha,
+        .picker_sample {
+          position: relative;
+          background: linear-gradient(
+                45deg,
+                lightgrey 25%,
+                transparent 25%,
+                transparent 75%,
+                lightgrey 75%
+              )
+              0 0/2em 2em,
+            linear-gradient(
+                45deg,
+                lightgrey 25%,
+                white 25%,
+                white 75%,
+                lightgrey 75%
+              )
+              1em 1em/2em 2em;
+          box-shadow: 0 0 0 1px silver;
+        }
+        .picker_alpha .picker_selector,
+        .picker_sample .picker_selector {
+          background: none;
+        }
+
+        .picker_editor input {
+          font-family: monospace;
+          padding: 0.2em 0.4em;
+        }
+
+        .picker_sample::before {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: currentColor;
+        }
+      </style>
+    </template>
+
+    <control-panel color=""></control-panel>
+  </body>
+</html>
