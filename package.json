@@ -53,6 +53,7 @@
   "dependencies": {
     "core-js": "^3.22.2",
     "file-loader": "^6.2.0",
+    "hex-to-rgba": "^2.0.1",
     "lato-font": "^3.0.0",
     "moment": "^2.29.3",
     "nanoid": "^3.3.3",

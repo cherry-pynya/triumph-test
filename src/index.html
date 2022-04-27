@@ -637,28 +637,76 @@
 
       <!-- разметка -->
       <section>
-        <h1 class="color"></h1>
+        <h2>Окно 3D</h2>
+        <canvas class="sphere-canvas">
+
+        </canvas>
       </section>
 
       <!-- таблица стилей -->
       <style>
+        @font-face {
+          font-family: "Lato", sans-serif;
+          src: url(./fonts/lato/Lato-Regular.ttf);
+          font-style: normal;
+          font-weight: normal;
+        }
+
         section {
           max-width: 679px;
-          height: 100px;
           background-color: #313131;
           border-radius: 20px;
           display: flex;
           flex-direction: column;
           margin: 100px auto;
+          display: flex;
+          align-items: center;
         }
 
-        h1 {
+        h2,span {
           text-align: center;
+          margin: 20px 0 27px 0;
+          font-family: "Lato", sans-serif;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 21.6px;
+          color: #FFFFFF;
+        }
+
+        .sphere-canvas {
+          width: calc(100% - 100px);
+          margin-bottom: 68px;
+          height: 360px;
         }
       </style>
     </template>
 
     <control-panel color=""></control-panel>
     <sphere-panel></sphere-panel>
+    <script  id="vertex-shader-2d" type="notjs">
+
+      // an attribute will receive data from a buffer
+      attribute vec4 a_position;
+    
+      // all shaders have a main function
+      void main() {
+    
+        // gl_Position is a special variable a vertex shader
+        // is responsible for setting
+        gl_Position = a_position;
+      }
+    
+    </script>
+    <script  id="fragment-shader-2d" type="notjs">
+    
+      precision mediump float;
+ 
+      uniform vec4 u_color;
+ 
+      void main() {
+        gl_FragColor = u_color;
+      }
+    
+    </script>
   </body>
 </html>
